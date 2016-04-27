@@ -1,0 +1,20 @@
+{
+	"1" : {
+		"id" : "1",
+		"name" : "Андрей Никитин jhfjhf",
+		"stats" : {
+			"san" : "ieromonax",
+			"vklad" : "knlnkn"
+		},
+		"photo" : "iero.jpg"
+	},
+	"2" : {
+		"id" : "2",
+		"name" : "YtАндрей asНикитин jhfjhf",
+		"stats" : {
+			"san" : "asdasd",
+			"vklad" : "fdfs"
+		},
+		"photo" : "fdd.jpg"
+	}
+}

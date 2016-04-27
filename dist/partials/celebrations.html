@@ -1,0 +1,35 @@
+<div class="logo">
+	<h1 class="siteheader">
+		<span class="siteheader-big">Иоанн</span>
+		Кронштадский
+	</h1>
+	<h2 class="sitesubheader">
+		<span class="sitesubheader-big">международные</span>
+		юбилейные торжества
+	</h2>
+</div>
+<nav class='mainnav'>
+	<a href="#/celebrations" class="navlink">торжества</a>
+	<a href="#/family" class="navlink">семья</a>
+	<a href="" ng-click='showhroniks()' class="navlink navlink-chronics">хроники</a>
+	<a href="" ng-click='showpeople()' class="navlink pull-right">персоналии</a>
+</nav>
+<div class="chronicsholder">
+	
+</div>
+<div class="personalyholder" ng-show='showpers'>
+	<input class="textinput" type="text" ng-model='personaly_search'>
+	<ul class="list">
+		<li ng-repeat="personaly in personalys | toArray | orderBy:'name' | filter:personaly_search" class="list_item personalys">
+			<a href="" class="personalylink" ng-click='selectPersonaly(personaly)'>{{personaly.name}}</a></h4>
+			<article ng-show='personaly.visible'  class='personalyinfo'>
+				<h3 class="personalyinfo_name">{{personaly.name}}</h3>
+				<ul class="personalystats" ng-show='personaly.stats'>
+					<li class="personalystats_stat" ng-repeat='stat in personaly.stats'>{{stat}}</li>
+				</ul>
+				<a href="" class="lookmore">подробнее</a>
+				<img ng-src="/img/{{personaly.photo}}" alt="{{personaly.name}}" class="personalyinfo_photo">
+			</article>
+		</li>
+	</ul>
+</div>
