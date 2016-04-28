@@ -24,7 +24,25 @@ ioann.controller('landCtrl',function ($scope) {
 	
 });
 ioann.controller('familyCtrl',function ($scope) {
-	
+	$scope.showpers = false;
+	$scope.personalys=[];
+	$scope.showpeople = function(){
+		if($scope.personalys.length === 0)
+			$http.get('/data/personalys.json').then(
+				function(res){
+					$scope.personalys = res.data;
+					$scope.showpers = !$scope.showpers;
+				}
+			)
+		else
+			$scope.showpers = !$scope.showpers;
+	};
+	$scope.selectPersonaly = function (mainpersonaly) {
+		angular.forEach($scope.personalys,function(value){
+			value.visible = false;
+		});
+		mainpersonaly.visible = true;
+	}
 });
 ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
@@ -32,6 +50,12 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 	$scope.showpoints = false;
 	$scope.personalys=[];
 	$scope.chronics=[];
+	$scope.showPhotos = function(){
+
+	}
+	$scope.showVideo = function(){
+
+	}
 	$scope.showpeople = function(){
 		if($scope.personalys.length === 0)
 			$http.get('/data/personalys.json').then(
@@ -76,5 +100,12 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 			}
 		)
 	};
+	$scope.showPoint = function(point){
+		angular.forEach($scope.points,function(value){
+			value.visible = false;
+		});
+		point.visible = true;
+	};
 	$scope.getPoints();
+
 }]);

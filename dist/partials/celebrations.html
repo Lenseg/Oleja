@@ -46,9 +46,9 @@
 </div>
 <div class="pointsholder">
 	<div class="pointline" ng-repeat='point in points'>
-		<div class="pointdiscr" ng-visible='point.visible'>
-			<button class="pointdiscr_button" ng-click='showPhotos({{point.photo}})'>фото</button>
-			<button class="pointdiscr_button" ng-click='showVideo({{point.video}})'>видео</button>
+		<div class="pointdiscr" ng-show='point.visible'>
+			<button class="pointdiscr_button" ng-click='showPhotos("{{point.photo}}")'>фото</button>
+			<button class="pointdiscr_button" ng-click='showVideo("{{point.video}}")'>видео</button>
 			<p class="pointdiscr_discr">
 				{{point.discription}}
 			</p>
