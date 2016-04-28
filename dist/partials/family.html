@@ -11,8 +11,7 @@
 <nav class='mainnav'>
 	<a href="#/celebrations" class="navlink">торжества</a>
 	<a href="#/family" class="navlink">семья</a>
-	<a href="#" ng-click='showhroniks()' class="navlink navlink-chronics">хроники</a>
-	<a href="#" ng-click='showpeople()' class="navlink pull-right">персоналии</a>
+	<a href="" ng-click='showpeople()' class="navlink pull-right">персоналии</a>
 	<div class="personalyholder" ng-show='showpers'>
 		<input class="textinput" type="text" ng-model='personaly_search'>
 		<ul class="list">
@@ -28,5 +27,19 @@
 				</article>
 			</li>
 		</ul>
+	</div>
+	<div class="pointsholder">
+		<div class="pointmap" ng-repeat='point in points'>
+			<h3 class="pointmap_city">
+				{{point.city}}
+			</h3>
+			<nav class='pointmenu'>
+				<a href="" class="pointmenu_button" ng-click='showPeople(point)'></a>
+				<a href="" class="pointmenu_button" ng-click='showRef(point)'></a>
+			</nav>
+			<p class="pointmap_info">
+				{{point.info}}
+			</p>
+		</div>
 	</div>
 </nav>

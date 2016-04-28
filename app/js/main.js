@@ -23,7 +23,7 @@ ioann.config(['$routeProvider',
 ioann.controller('landCtrl',function ($scope) {
 	
 });
-ioann.controller('familyCtrl',function ($scope) {
+ioann.controller('familyCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
 	$scope.personalys=[];
 	$scope.showpeople = function(){
@@ -43,7 +43,7 @@ ioann.controller('familyCtrl',function ($scope) {
 		});
 		mainpersonaly.visible = true;
 	}
-});
+}]);
 ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
 	$scope.showchrons = false;
