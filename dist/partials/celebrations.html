@@ -44,3 +44,15 @@
 		</li>
 	</ul>
 </div>
+<div class="pointsholder">
+	<div class="pointline" ng-repeat='point in points'>
+		<div class="pointdiscr" ng-visible='point.visible'>
+			<button class="pointdiscr_button" ng-click='showPhotos({{point.photo}})'>фото</button>
+			<button class="pointdiscr_button" ng-click='showVideo({{point.video}})'>видео</button>
+			<p class="pointdiscr_discr">
+				{{point.discription}}
+			</p>
+		</div>
+		<a href="" class="navlink pointlink" ng-click='showPoint(point)'>{{point.name}}</a>
+	</div>
+</div>

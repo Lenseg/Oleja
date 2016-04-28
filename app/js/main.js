@@ -29,6 +29,7 @@ ioann.controller('familyCtrl',function ($scope) {
 ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
 	$scope.showchrons = false;
+	$scope.showpoints = false;
 	$scope.personalys=[];
 	$scope.chronics=[];
 	$scope.showpeople = function(){
@@ -66,5 +67,14 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 			value.visible = false;
 		});
 		chronic.visible = true;
-	}
+	};
+	$scope.getPoints = function(){
+		$http.get('/data/points.json').then(
+			function(res){
+				$scope.points = res.data;
+				$scope.showpoints = !$scope.showpoints;
+			}
+		)
+	};
+	$scope.getPoints();
 }]);
