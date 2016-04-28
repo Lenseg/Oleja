@@ -14,8 +14,19 @@
 	<a href="" ng-click='showhroniks()' class="navlink navlink-chronics">хроники</a>
 	<a href="" ng-click='showpeople()' class="navlink pull-right">персоналии</a>
 </nav>
-<div class="chronicsholder">
-	
+<div class="chronicsholder" ng-show='showchrons'>
+	<video ng-src="{{chronicsvideo}}"></video>
+	<ul class="chronicsnav">
+		<li class="chronicsbutton" ng-repeat='chronic in chronics'>
+			<a href="" class="chronicsbutton_link" ng-click='selectChronic(chronic)'>-</a>
+		</li>
+	</ul>
+	<ul class="chronicsdatalist">
+		<li class="chronicsdata" ng-show='chonic.visible'  ng-repeat='chonic in chronics'>
+			<time class='chronicsdata_time'>{{chonic.time}}</time>
+			<h3 class='chronicsdata_header'>{{chonic.header}}</h3>
+		</li>
+	</ul>
 </div>
 <div class="personalyholder" ng-show='showpers'>
 	<input class="textinput" type="text" ng-model='personaly_search'>
