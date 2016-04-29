@@ -25,6 +25,10 @@ gulp.task('js',function(){
   .pipe(gulp.dest('./dist/js/'));
 });
 gulp.task('copyjs', function() {
-   gulp.src(['./bower_components/angular/angular.min.js','./bower_components/angular-route/angular-route.min.js','./bower_components/angular-toArrayFilter/toArrayFilter.js'])
+   gulp.src([
+    './bower_components/angular/angular.min.js',
+    './bower_components/angular-route/angular-route.min.js',
+    './bower_components/angular-toArrayFilter/toArrayFilter.js',
+    './bower_components/video.js/dist/video.js'])
    .pipe(gulp.dest('./dist/js/'));
 });

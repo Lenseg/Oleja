@@ -1,0 +1,14 @@
+{
+	"1" : {
+		"id" : "1",
+		"city" : "Ym. Qjhr",
+		"photo" : "spsp.jpg",
+		"info" : "sdfasfasdfas asdfasd asdfas"
+	},
+	"2" : {
+		"id" : "2",
+		"city" : "Нижневартовск",
+		"photo" : "spsp.jpg",
+		"info" : "sdfasfasdfas asdfasdfsdfasd"
+	}
+}

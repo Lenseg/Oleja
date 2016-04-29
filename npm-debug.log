@@ -1,0 +1,46 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'bower' ]
+2 info using npm@3.8.3
+3 info using node@v5.10.1
+4 verbose stack Error: EACCES: permission denied, open '/usr/local/lib/node_modules/npm/node_modules/request/lib/har.js'
+4 verbose stack     at Error (native)
+4 verbose stack     at Object.fs.openSync (fs.js:584:18)
+4 verbose stack     at Object.fs.readFileSync (fs.js:431:33)
+4 verbose stack     at Object.Module._extensions..js (module.js:421:20)
+4 verbose stack     at Module.load (module.js:357:32)
+4 verbose stack     at Function.Module._load (module.js:314:12)
+4 verbose stack     at Module.require (module.js:367:17)
+4 verbose stack     at require (internal/module.js:16:19)
+4 verbose stack     at Object.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:24:11)
+4 verbose stack     at Module._compile (module.js:413:34)
+5 verbose cwd /home/lens/server/ioann
+6 error Linux 3.19.0-33-generic
+7 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "bower"
+8 error node v5.10.1
+9 error npm  v3.8.3
+10 error path /usr/local/lib/node_modules/npm/node_modules/request/lib/har.js
+11 error code EACCES
+12 error errno -13
+13 error syscall open
+14 error Error: EACCES: permission denied, open '/usr/local/lib/node_modules/npm/node_modules/request/lib/har.js'
+14 error     at Error (native)
+14 error     at Object.fs.openSync (fs.js:584:18)
+14 error     at Object.fs.readFileSync (fs.js:431:33)
+14 error     at Object.Module._extensions..js (module.js:421:20)
+14 error     at Module.load (module.js:357:32)
+14 error     at Function.Module._load (module.js:314:12)
+14 error     at Module.require (module.js:367:17)
+14 error     at require (internal/module.js:16:19)
+14 error     at Object.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:24:11)
+14 error     at Module._compile (module.js:413:34)
+14 error  { [Error: EACCES: permission denied, open '/usr/local/lib/node_modules/npm/node_modules/request/lib/har.js']
+14 error   errno: -13,
+14 error   code: 'EACCES',
+14 error   syscall: 'open',
+14 error   path: '/usr/local/lib/node_modules/npm/node_modules/request/lib/har.js' }
+15 error Please try running this command again as root/Administrator.
+16 verbose exit [ -13, true ]
