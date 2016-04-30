@@ -20,9 +20,11 @@ ioann.config(['$routeProvider',
       });
   }]);
 
-ioann.controller('landCtrl',function ($scope) {
-	
-});
+ioann.controller('landCtrl',['$scope', function ($scope) {
+	$scope.playVideo = function(){
+
+	}	
+}]);
 ioann.controller('familyCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
 	$scope.personalys=[];

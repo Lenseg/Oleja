@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+}
+.div_video {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  overflow: hidden;
+}
+body {
+  min-height: 100vh;
+  color: #f7f7f7;
+}
+main {
+  min-height: 100%;
+}
+.vjs-poster {
+  background-size: cover;
+}
+.land_content {
+  display: inline-block;
+  text-align: center;
+  padding-left: 52px;
+}
+.logo-land {
+  display: inline-block;
+  margin: 4.6vh 0 11vh;
+}
+.header-land {
+  margin-bottom: 7vh;
+}
+.siteheader {
+  text-transform: uppercase;
+  font: 40.69px 'Roboto', sans-serif;
+  font-weight: 100;
+}
+.siteheader-big {
+  font-size: 101.6px;
+  line-height: 72px;
+  display: block;
+}
+.sitesubheader {
+  font: italic 33px 'Playfair Display', serif;
+  font-weight: 400;
+}
+.sitesubheader-big {
+  font-size: 47px;
+  display: block;
+}
+.landnav a {
+  display: inline-block;
+  margin-bottom: 30px;
+}
+.navlink {
+  font: 14px 'Roboto', sans-serif;
+  font-weight: 100;
+  text-decoration: none;
+  position: relative;
+}
+.navlink:before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: calc(50% - 4px);
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 8px;
+  border-color: transparent transparent transparent transparent;
+  -webkit-transition: 300ms ease-in;
+  transition: 300ms ease-in;
+}
+.navlink:hover:before {
+  border-color: transparent transparent transparent #f7f7f7;
+}

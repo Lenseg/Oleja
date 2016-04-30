@@ -12,7 +12,7 @@ gulp.task('less', function () {
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
     .pipe(autoprefixer())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./dist/css/'));
 });
 gulp.task('watch', function() {
@@ -32,3 +32,13 @@ gulp.task('copyjs', function() {
     './bower_components/video.js/dist/video.js'])
    .pipe(gulp.dest('./dist/js/'));
 });
+gulp.task('copycss', function() {
+   gulp.src(
+    './bower_components/video.js/dist/video-js.min.css')
+   .pipe(gulp.dest('./dist/css/'));
+});
+gulp.task('copyvector',function(){
+  gulp.src(
+    './bower_components/video.js/dist/video-js.swf')
+  .pipe(gulp.dest('./dist/fonts/'));
+})
