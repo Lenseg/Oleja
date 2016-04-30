@@ -21,9 +21,12 @@ ioann.config(['$routeProvider',
   }]);
 
 ioann.controller('landCtrl',['$scope', function ($scope) {
-	$scope.playVideo = function(){
-
-	}	
+	videojs("div_video").ready(function(){
+		$scope.video = this;
+		  	scope.playVideo = function(){
+				$scope.video.play();
+			}
+	});
 }]);
 ioann.controller('familyCtrl',['$scope', '$http', function ($scope, $http) {
 	$scope.showpers = false;
