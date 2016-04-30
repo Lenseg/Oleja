@@ -1,4 +1,4 @@
-<div class="land_content">
+<div class="land_content" ng-class="{hidden:videoplayng}">
 <img src="/img/logo.png" alt="Иоанн Кронштадский международные юбилейные торжества" class="logo logo-land">
 <div class="header header-land">
 	<h1 class="siteheader">
@@ -16,7 +16,8 @@
 	<a href="#/celebrations" class="navlink">перейти к проекту</a>
 </nav>
 </div>
-<video id="div_video" class="video-js vjs-default-skin div_video" preload="auto" poster="/img/bg-main.jpg">  
+<button class="close close-video" ng-class="{hidden:!videoplayng}" ng-click='closeVideo()'></button>
+<video id="div_video" class="video-js vjs-default-skin div_video" controls preload="auto" poster="/img/bg-main.jpg">  
     <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"  type="video/mp4">
     <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"  type="video/ogg">
     <!-- <source src=""  type="video/webm"> -->

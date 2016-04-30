@@ -4,6 +4,10 @@
 	margin: 0;
 	padding: 0;
 	color: inherit;
+	background: transparent;
+	border:none;
+	outline: none;
+
 }
 .div_video{
 	position: absolute;
@@ -13,12 +17,14 @@
 	min-height: 100%; 
 	width: auto; 
 	height: auto;
-	z-index: -1000; 
+	z-index: 0; 
 	overflow: hidden;
 
 }
 body{
 	min-height: 100vh;
+	max-width: 100%;
+	overflow: hidden;
 	color: @white;
 }
 main {
@@ -26,11 +32,35 @@ main {
 }
 .vjs-poster{
 	background-size: cover;
+	transition:opacity 500ms ease-out;
+}
+.vjs-playing .vjs-poster{
+	opacity: 0;
+	display: block;
+}
+.vjs-has-started .vjs-control-bar{
+	display: none;
+}
+.vjs-playing .vjs-control-bar{
+	opacity: 0;
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    visibility: visible;
+    opacity: 1;
 }
 .land_content{
 	display: inline-block;
 	text-align: center;
 	padding-left: 52px;
+	transition:300ms ease-out;
+	position: relative;
+	z-index: 2;
+	transform:translateX(0);
+	&.hidden{
+		transform:translateX(-100%)
+	}
 }
 .logo{
 	&-land{
@@ -89,5 +119,40 @@ main {
 		&:before{
 			border-color: transparent transparent transparent @white;
 		}
+	}
+}
+.close{
+	position: relative;
+	height: 40px;
+	width: 40px;
+	z-index: 2;
+	cursor: pointer;
+	&-video{
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		transition:300ms ease-in;
+		transform:translateX(0);
+		&.hidden{
+			transform:translateX(300%)
+		}
+	}
+	&:before,&:after{
+		background-color: @white;
+		height: 6px;
+		width: 25px;
+		content: '';
+		display: block;
+		position: absolute;
+		top: ~"calc(50% - 3px)";
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+	}
+	&:before{
+		transform:rotate(45deg);
+	}
+	&:after{
+		transform:rotate(-45deg);
 	}
 }

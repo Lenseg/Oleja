@@ -20,10 +20,30 @@ ioann.config(['$routeProvider',
       });
   }]);
 
-ioann.controller('landCtrl',['$scope', function ($scope) {
-	videojs("div_video").ready(function(){
+ioann.controller('landCtrl',['$scope','$timeout', function ($scope,$timeout) {
+	$scope.videoplayng=false;
+	videojs("div_video",{
+    	bigPlayButton: false
+	}).ready(function(){
 		$scope.video = this;
-		  	scope.playVideo = function(){
+		$scope.hideVideo = function(){
+			$scope.videoplayng=false;
+			$scope.video.posterImage.show();
+			$scope.video.userActive(false);
+		}
+			$scope.video.on('ended', function() {
+			    $timeout($scope.hideVideo());
+				$scope.video.currentTime(0);
+			});
+			$scope.video.on('pause', function() {
+			    $timeout($scope.hideVideo());
+			});
+			$scope.closeVideo = function(){
+				$scope.video.pause();
+			}
+		  	$scope.playVideo = function(){
+		  		$scope.videoplayng=true;
+		  		$scope.video.userActive(true);
 				$scope.video.play();
 			}
 	});
