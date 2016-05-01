@@ -29,12 +29,15 @@ gulp.task('copyjs', function() {
     './bower_components/angular/angular.min.js',
     './bower_components/angular-route/angular-route.min.js',
     './bower_components/angular-toArrayFilter/toArrayFilter.js',
-    './bower_components/video.js/dist/video.js'])
+    './bower_components/video.js/dist/video.js',
+    './bower_components/leaflet/dist/leaflet.js',
+    './bower_components/angular-animate/angular-animate.min.js'])
    .pipe(gulp.dest('./dist/js/'));
 });
 gulp.task('copycss', function() {
    gulp.src(
-    './bower_components/video.js/dist/video-js.min.css')
+    ['./bower_components/video.js/dist/video-js.min.css',
+    './bower_components/leaflet/dist/leaflet.css'])
    .pipe(gulp.dest('./dist/css/'));
 });
 gulp.task('copyvector',function(){

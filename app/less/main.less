@@ -9,7 +9,7 @@
 	outline: none;
 
 }
-.div_video{
+.div_video,.map{
 	position: absolute;
 	bottom: 0; 
 	right: 0;
@@ -19,7 +19,26 @@
 	height: auto;
 	z-index: 0; 
 	overflow: hidden;
-
+}
+.map-celebration-point{
+	height: 10px !important;
+	width: 10px !important;
+	background-color: @white;
+	border-radius: 50%;
+	margin-left: -5px !important;
+	margin-top: -5px !important;
+}
+.map-celebration-point-big{
+	height: 20px !important;
+	width: 20px !important;
+	background-color: @white;
+	border-radius: 50%;
+	margin-left: -10px !important;
+	margin-top: -10px !important;
+}
+.leaflet-tile-loaded {
+    filter: blur(1px);
+    transform: scale(1.01);
 }
 body{
 	min-height: 100vh;
@@ -34,8 +53,12 @@ main {
 	background-size: cover;
 	transition:opacity 500ms ease-out;
 }
+
 .vjs-playing .vjs-poster{
 	opacity: 0;
+	display: block;
+}
+.vjs-has-started .vjs-poster{
 	display: block;
 }
 .vjs-has-started .vjs-control-bar{
@@ -67,10 +90,35 @@ main {
 		display: inline-block;
 		margin:4.6vh 0 11vh;
 	}
+	&-celebrations{
+		float: right;
+		margin-top: 10px;
+		margin-right: 10px;
+		position: relative;
+		z-index: 5;
+	}
 }
 .header{
 	&-land{
 		margin-bottom: 7vh;
+	}
+	&-celebrations{
+		display: inline-block;
+		position: relative;
+		z-index: 5;
+		opacity: .8;
+		padding-left: 20px;
+		.siteheader, .siteheader-big{
+			font-size: 30px;
+			line-height: 30px;
+		}
+		.siteheader{
+			margin-bottom: 5px;
+		}
+		.sitesubheader,.sitesubheader-big{
+			font-size: 18px;
+			line-height: 18px;
+		}
 	}
 }
 .siteheader{
@@ -120,6 +168,12 @@ main {
 			border-color: transparent transparent transparent @white;
 		}
 	}
+	&-active{
+		text-decoration: underline;
+	}
+	&-chronicks{
+		padding-bottom: 5px;
+	}
 }
 .close{
 	position: relative;
@@ -155,4 +209,109 @@ main {
 	&:after{
 		transform:rotate(-45deg);
 	}
+}
+.mainnav{
+	position: relative;
+	z-index: 5;
+	padding: 5px 15px;
+	margin: 5px;
+	margin-bottom: 12vh;
+	background:rgba(0, 0, 0, .37);
+	float: left;
+	a{
+		margin-right: 20px;
+		&:last-of-type{
+			margin-right: 0;
+		}
+	}
+}
+.clearfix{
+	height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.chronicsholder{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 5;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+.chroniccontainer{
+	margin-top: 10px;
+	&_screen{
+		opacity:0.24;
+		max-height: 142px;
+		max-width: 624px;
+	}
+}
+.chronicsnav{
+	text-align: center;
+}
+.chronicsbutton{
+	display: inline-block;
+	list-style: none;
+	margin-left: 3px;
+	opacity: .9;
+	cursor: pointer;
+	&_link{
+		height: 3px;
+		width: 20px;
+		background: #fff;
+		display: block;
+		transition:300ms ease-in;
+		&.active{
+			height: 10px;
+			width: 60px;
+			transform: translateY(4px);
+		}
+	}
+}
+.chronicsdata{
+	position: absolute;
+	top: 23px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    list-style: none;
+    &_time{
+    	font:14px 'Roboto', sans-serif;
+    	color: #ffffff;
+    	font-weight: 100;
+    	display: inline-block;
+		margin-top: 12px;
+		margin-bottom: 24px;
+    }
+    &_play{
+    	width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 17.5px 0 17.5px 30px;
+		border-color: transparent transparent transparent #ffffff;
+    	margin: 0 auto 24px;
+    	display: block;
+    	cursor: pointer;
+    }
+    &_heder{
+		font:18px 'Roboto', sans-serif;
+    	color: #ffffff;
+    	font-weight: 100;
+    }
+}
+.animate-show {
+	opacity: 1;
+	max-height: 500px;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+ 	transition: all ease-in 0.5s;
+}
+
+.animate-show.ng-hide {
+	max-height: 0;
+ 	opacity: 0;
+}
+.pull-right{
+	float: right;
 }

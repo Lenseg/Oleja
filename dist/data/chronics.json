@@ -3,12 +3,14 @@
 		"id" : "1",
 		"header" : "Переправа через реку",
 		"time" : "24 okt 3909",
+		"screenshot" : "/img/videos/1/screen.jpg",
 		"video" : "iero.mp4"
 	},
 	"2" : {
 		"id" : "2",
 		"header" : "переправа чере павап",
 		"time" : "24 okt 3909",
+		"screenshot" : "/img/videos/1/screen.jpg",
 		"video" : "fdd.mp4"
 	}
 }
