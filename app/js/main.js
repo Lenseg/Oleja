@@ -23,6 +23,9 @@ ioann.config(['$routeProvider',
 ioann.controller('landCtrl',['$scope','$timeout', function ($scope,$timeout) {
 	$scope.videoplayng=false;
 	var promise = null;
+	if(videojs.getPlayers()['div_video']) {
+		videojs('div_video').dispose();
+	}
 	videojs("div_video",{
     	bigPlayButton: false
 	}).ready(function(){
@@ -42,7 +45,7 @@ ioann.controller('landCtrl',['$scope','$timeout', function ($scope,$timeout) {
 				$scope.video.currentTime(0);
 			});
 			$scope.video.on('pause', function() {
-			    promise = $timeout($scope.hideVideo,1000);
+			    promise = $timeout($scope.hideVideo,200);
 			});
 			$scope.video.on('play', function() {
 				if(promise != null)
