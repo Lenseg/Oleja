@@ -197,7 +197,7 @@ main {
 .close:after {
   background-color: #f7f7f7;
   height: 6px;
-  width: 25px;
+  width: 26px;
   content: '';
   display: block;
   position: absolute;
@@ -258,6 +258,7 @@ main {
   list-style: none;
   margin-left: 3px;
   opacity: .9;
+  cursor: pointer;
 }
 .chronicsbutton_link {
   height: 3px;
@@ -266,6 +267,7 @@ main {
   display: block;
   -webkit-transition: 300ms ease-in;
   transition: 300ms ease-in;
+  cursor: pointer;
 }
 .chronicsbutton_link.active {
   height: 10px;
@@ -298,6 +300,11 @@ main {
   margin: 0 auto 24px;
   display: block;
   cursor: pointer;
+  opacity: 0.5;
+  transiton: 300ms ease-in;
+}
+.chronicsdata_play:hover {
+  opacity: 1;
 }
 .chronicsdata_heder {
   font: 18px 'Roboto', sans-serif;
@@ -319,4 +326,33 @@ main {
 }
 .pull-right {
   float: right;
+}
+.videocontainer {
+  position: absolute;
+  left: 50%;
+  margin: 0 auto;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 8;
+}
+.videocontainer .close-video {
+  top: -50px;
+  left: 100%;
+}
+.videoplayer {
+  display: block;
+  margin: 0 auto;
+}
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 6;
 }

@@ -4,13 +4,18 @@
 		"header" : "Переправа через реку",
 		"time" : "24 okt 3909",
 		"screenshot" : "/img/videos/1/screen.jpg",
-		"video" : "iero.mp4"
+		"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		]
 	},
 	"2" : {
 		"id" : "2",
 		"header" : "переправа чере павап",
 		"time" : "24 okt 3909",
 		"screenshot" : "/img/videos/1/screen.jpg",
-		"video" : "fdd.mp4"
+		"video" : [{
+			"type":"video/mp4", "src":"http://download.wavetlan.com/SVV/Media/HTTP/H264/Talkinghead_Media/H264_test1_Talkinghead_mp4_480x360.mp4"
+		}]
 	}
 }

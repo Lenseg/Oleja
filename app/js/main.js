@@ -97,8 +97,22 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 	$scope.showchrons = false;
 	$scope.showpoints = false;
 	$scope.mousedown = false;
+	$scope.showvideo = false;
 	$scope.personalys=[];
 	$scope.chronics=[];
+
+
+	if(videojs.getPlayers()['div_video']) {
+		videojs('div_video').dispose();
+	}
+	videojs("div_video",{
+    	bigPlayButton: false
+	}).ready(function(){
+		$scope.video = this;
+	});
+
+
+
 	$scope.map = L.map('mapid',{zoomControl:false,attributionControl:false}).setView([61.66235,40.2058416666667], 6);
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -149,25 +163,14 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 	$scope.showPhotos = function(){
 
 	}
-	$scope.showVideo = function(){
-
+	$scope.playVideo = function(videoObj){
+		$scope.video.src(videoObj);
+		$scope.showvideo = true;
+		$scope.video.play()
 	}
-	$scope.showpeople = function(){
-		if($scope.personalys.length === 0)
-			$http.get('/data/personalys.json').then(
-				function(res){
-					$scope.personalys = res.data;
-					$scope.showpers = !$scope.showpers;
-				}
-			)
-		else
-			$scope.showpers = !$scope.showpers;
-	};
-	$scope.selectPersonaly = function (mainpersonaly) {
-		angular.forEach($scope.personalys,function(value){
-			value.visible = false;
-		});
-		mainpersonaly.visible = true;
+	$scope.closeVideo = function(){
+		$scope.showvideo = false;
+		$scope.video.pause();
 	}
 	$scope.showhroniks = function(){
 		if($scope.chronics.length === 0)
@@ -188,23 +191,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 		});
 		chronic.visible = true;
 	};
-	$scope.getPoints = function(){
-		$http.get('/data/points.json').then(
-			function(res){
-				$scope.points = res.data;
-				$scope.showpoints = !$scope.showpoints;
-			}
-		)
-	};
-	$scope.showPoint = function(point){
-		angular.forEach($scope.points,function(value){
-			value.visible = false;
-		});
-		point.visible = true;
-	};
-	$scope.getPoints();
 	$scope.chronickMousover = function(chronic){
-		console.log($scope.mousedown)
 		if($scope.mousedown)
 			$scope.selectChronic(chronic);
 	}
@@ -212,6 +199,6 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 		$scope.mousedown = true;
 	}
 	document.documentElement.addEventListener('mouseup', function(e){
-	   $scope.mouseDown = false;
+	   $scope.mousedown = false;
 	}); 
 }]);

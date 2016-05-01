@@ -23,7 +23,7 @@
 		<ul class="chronicsdatalist">
 			<li class="chronicsdata" ng-show='chonic.visible'  ng-repeat='chonic in chronics'>
 				<time class='chronicsdata_time'>{{chonic.time}}</time>
-				<button class="chronicsdata_play" ng-click='playVideo(chronic.video)'>
+				<button class="chronicsdata_play" ng-click='playVideo(chonic.video)'>
 				</button>
 				<h3 class='chronicsdata_header'>{{chonic.header}}</h3>
 			</li>
@@ -47,4 +47,12 @@
 		<a href="" class="navlink pointlink" ng-click='showPoint(point)'>{{point.name}}</a>
 	</div>
 </div>
- <div id="mapid" class="map"></div>
+<div id="mapid" class="map"></div>
+<div class="videocontainer animate-show" ng-show='showvideo'>
+	<button class="close close-video" ng-click='closeVideo()'></button>
+	<video id="div_video" class="video-js vjs-default-skin videoplayer" controls preload="auto" poster="/img/bg-main.jpg">  
+	</video>
+</div>
+<div class="overlay" ng-show='showvideo' ng-click='closeVideo()'>
+	
+</div>

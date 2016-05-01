@@ -194,7 +194,7 @@ main {
 	&:before,&:after{
 		background-color: @white;
 		height: 6px;
-		width: 25px;
+		width: 26px;
 		content: '';
 		display: block;
 		position: absolute;
@@ -261,6 +261,7 @@ main {
 		background: #fff;
 		display: block;
 		transition:300ms ease-in;
+		cursor: pointer;
 		&.active{
 			height: 10px;
 			width: 60px;
@@ -292,6 +293,11 @@ main {
     	margin: 0 auto 24px;
     	display: block;
     	cursor: pointer;
+    	opacity: 0.5;
+    	transiton:300ms ease-in;
+    	&:hover{
+    		opacity: 1;
+    	}
     }
     &_heder{
 		font:18px 'Roboto', sans-serif;
@@ -314,4 +320,32 @@ main {
 }
 .pull-right{
 	float: right;
+}
+.videocontainer{
+	position: absolute;
+    left: 50%;
+    margin: 0 auto;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 8;
+    .close-video{
+    	top: -50px;
+    	left: 100%;
+    }
+}
+.videoplayer{
+	display: block;
+	margin: 0 auto;
+}
+.overlay{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	z-index: 6;
 }
