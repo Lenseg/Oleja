@@ -92,7 +92,7 @@ ioann.controller('familyCtrl',['$scope', '$http', function ($scope, $http) {
 	}
 	$scope.getPoints();
 }]);
-ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http) {
+ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', function ($scope, $http,$compile,$timeout) {
 	$scope.showpers = false;
 	$scope.showchrons = false;
 	$scope.showpoints = false;
@@ -124,42 +124,113 @@ ioann.controller('celebrationsCtrl',['$scope', '$http', function ($scope, $http)
 
 	var pointIcon = L.divIcon({
 	    className : "map-celebration-point",
-	    popupAnchor : L.point(0, 0)
+	    popupAnchor : L.point(125, -50)
 	});
 	var pointIconBig = L.divIcon({
 	    className : "map-celebration-point-big",
-	    popupAnchor : L.point(0, 0)
+	    popupAnchor : L.point(125, -50)
 	});
 
 	var pointToLayer = function(feature, latlon) {
+		var marker;
+		var template = "<div class='popup'><a href='' class='popup_media'>Фото <div class='popupposter' style='background-image:url("+feature.properties.photobg+")'></div></a><a href='' class='popup_media' ng-click='playVideo("+JSON.stringify(feature.properties.video)+")'>Видео<div class='popupposter' style='background-image:url("+feature.properties.videobg+")'></div></a><p class='popup_discription'>"+feature.properties.Description+"</p></div>";
+        var linkFn = $compile(template);
+        var content = linkFn($scope);
+		var popup = L.popup({closeButton:false}).setContent(content[0]);
 		if(feature.properties.bigicon)
-			return L.marker(latlon,{icon:pointIconBig});
-			return L.marker(latlon,{icon:pointIcon});
+			marker = L.marker(latlon,{icon:pointIconBig});
+		else
+			marker = L.marker(latlon,{icon:pointIcon});
+		marker.bindPopup(popup);
+		return marker;
     }
+
     geoJsonObj = [
-		{ "type": "Feature", "properties": { "Name": "Кронштадт", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 29.777497222222198, 59.992766666666697, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Кронштадт", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 29.777497222222198, 59.992766666666697, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "bigicon" : true, "Name": "Санкт-Петербург", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 30.3353111111111, 59.931363888888903, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "bigicon" : true, "Name": "Санкт-Петербург", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 30.3353111111111, 59.931363888888903, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Коноша", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 40.253905555555598, 60.9735333333333, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Коноша", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.253905555555598, 60.9735333333333, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Няндома", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 40.2058416666667, 61.66235, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Няндома", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.2058416666667, 61.66235, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Плесецк", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 40.295791666666702, 62.707947222222202, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Плесецк", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.295791666666702, 62.707947222222202, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "bigicon" : true, "Name": "Обозерская", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 40.311391666666701, 63.448888888888902, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "bigicon" : true, "Name": "Обозерская", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.311391666666701, 63.448888888888902, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Архангельск", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 40.574722222222199, 64.550833333333301, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Архангельск", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.574722222222199, 64.550833333333301, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Карпогоры", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 44.404163888888903, 64.041669444444395, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Карпогоры", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 44.404163888888903, 64.041669444444395, 0.0 ] } }
 		,
-		{ "type": "Feature", "properties": { "Name": "Сура", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 45.6324, 63.575536111111099, 0.0 ] } }
+		{ "type": "Feature", "properties": {
+			"photobg" : '/img/popupposters/1/photo.jpg',
+			"videobg" : '/img/popupposters/1/video.jpg',
+			"video" : [
+			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+		], "Name": "Сура", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 45.6324, 63.575536111111099, 0.0 ] } }
 	]
 	var jsonLayer = L.geoJson(geoJsonObj,{pointToLayer:pointToLayer}).addTo($scope.map);
 	  var polyline = L.polyline([],{color:"#f7f7f7",weight:2,opacity:1}).addTo($scope.map);
 	  jsonLayer.eachLayer(function(l) {
 	    polyline.addLatLng(l.getLatLng());
+	});
+	  var poptimeout = null
+	  $scope.map.on('popupclose',function(){
+	  	poptimeout = $timeout(function(){$scope.map.setView([61.66235,40.2058416666667], 6,{animate:false})},100)
 	  });
+	  $scope.map.on('popupopen', function(e){
+	  		$timeout.cancel(poptimeout);
+		    $scope.map.setView(e.popup._latlng, 9,{animate:false});
+		});
 	$scope.showPhotos = function(){
 
 	}
