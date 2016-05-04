@@ -44,9 +44,6 @@ ioann.controller('landCtrl',['$scope','$timeout', function ($scope,$timeout) {
 			    $timeout($scope.hideVideo);
 				$scope.video.currentTime(0);
 			});
-			$scope.video.on('pause', function() {
-			    promise = $timeout($scope.hideVideo,200);
-			});
 			$scope.video.on('play', function() {
 				if(promise != null)
 					$timeout.cancel(promise);
@@ -55,6 +52,7 @@ ioann.controller('landCtrl',['$scope','$timeout', function ($scope,$timeout) {
 			});
 			$scope.closeVideo = function(){
 				$scope.video.pause();
+				$scope.hideVideo();
 			}
 		  	$scope.playVideo = function(){
 				$scope.video.play();
@@ -113,7 +111,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 
 
 
-	$scope.map = L.map('mapid',{zoomControl:false,attributionControl:false}).setView([61.66235,40.2058416666667], 6);
+	$scope.map = L.map('mapid',{zoomControl:false,attributionControl:false,dragging:false}).setView([61.66235,40.2058416666667], 6);
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 	    maxZoom: 18,
@@ -121,82 +119,186 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	    accessToken: 'pk.eyJ1IjoibGVuc2VnIiwiYSI6ImNpbm8yeTlqazB6bm91Nmx5OHhycnNwN3AifQ.2_7w87K3h6dfp_ohKsS1Gg'
 	}).addTo($scope.map);
 
-
-	var pointIcon = L.divIcon({
-	    className : "map-celebration-point",
-	    popupAnchor : L.point(125, -50)
-	});
-	var pointIconBig = L.divIcon({
-	    className : "map-celebration-point-big",
-	    popupAnchor : L.point(125, -50)
-	});
-
 	var pointToLayer = function(feature, latlon) {
 		var marker;
-		var template = "<div class='popup'><a href='' class='popup_media'>Фото <div class='popupposter' style='background-image:url("+feature.properties.photobg+")'></div></a><a href='' class='popup_media' ng-click='playVideo("+JSON.stringify(feature.properties.video)+")'>Видео<div class='popupposter' style='background-image:url("+feature.properties.videobg+")'></div></a><p class='popup_discription'>"+feature.properties.Description+"</p></div>";
+
+		var className =  'map-celebration-point';
+		var popclass = 'popup';
+		var position = L.point(125, -50);
+		if(feature.properties.bigicon)
+			className = className+'-big';
+		if(feature.properties.alwaysvisible)
+			className = className+' map-celebration-point-alwaysvisible';
+		if(feature.properties.leftsided){
+			position = L.point(-272,80);
+			popclass = popclass + ' ' + popclass+'-leftsided';
+		}
+		var template = "<div class='"+popclass+"'><a href='' class='popup_media' ng-click='showSlides("+JSON.stringify(feature.properties.slides)+")'>Фото <div class='popupposter' style='background-image:url("+feature.properties.photobg+")'></div></a><a href='' class='popup_media' ng-click='playVideo("+JSON.stringify(feature.properties.video)+")'>Видео<div class='popupposter' style='background-image:url("+feature.properties.videobg+")'></div></a><p class='popup_discription'>"+feature.properties.Description+"</p></div>";
         var linkFn = $compile(template);
         var content = linkFn($scope);
-		var popup = L.popup({closeButton:false}).setContent(content[0]);
-		if(feature.properties.bigicon)
-			marker = L.marker(latlon,{icon:pointIconBig});
-		else
-			marker = L.marker(latlon,{icon:pointIcon});
+		var popup = L.popup({closeButton:false,autoPan: false}).setContent(content[0]);
+		
+		marker = L.marker(latlon,{icon:L.divIcon({
+			    className : className,
+			    popupAnchor : position,
+			    html:'<span class="marker-title">'+feature.properties.Name+'</span>'
+			})
+		});
 		marker.bindPopup(popup);
 		return marker;
     }
 
     geoJsonObj = [
-		{ "type": "Feature", "properties": {
-			"photobg" : '/img/popupposters/1/photo.jpg',
-			"videobg" : '/img/popupposters/1/video.jpg',
-			"video" : [
-			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
-			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
-		], "Name": "Кронштадт", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 29.777497222222198, 59.992766666666697, 0.0 ] } }
+		{ 
+			"type": "Feature",
+			"properties": {
+				"photobg" : '/img/popupposters/1/photo.jpg',
+				"videobg" : '/img/popupposters/1/video.jpg',
+				"video" : [
+					{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
+					{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
+				], 
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
+				"Name": "Кронштадт", 
+				"Description": "gjgjhg" 
+			}, 
+			"geometry": { 
+				"type": "Point",
+				"coordinates": [ 29.777497222222198, 59.992766666666697, 0.0 ] 
+			} 
+		}
 		,
 		{ "type": "Feature", "properties": {
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
-		], "bigicon" : true, "Name": "Санкт-Петербург", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 30.3353111111111, 59.931363888888903, 0.0 ] } }
+		], "bigicon" : true, "alwaysvisible":true, "Name": "Санкт-Петербург", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 30.3353111111111, 59.931363888888903, 0.0 ] } }
 		,
 		{ "type": "Feature", "properties": {
+			"leftsided" :true,
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
 		], "Name": "Коноша", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.253905555555598, 60.9735333333333, 0.0 ] } }
 		,
 		{ "type": "Feature", "properties": {
+			"leftsided" :true,
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
 		], "Name": "Няндома", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.2058416666667, 61.66235, 0.0 ] } }
 		,
 		{ "type": "Feature", "properties": {
+			"leftsided" :true,
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
 		], "Name": "Плесецк", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.295791666666702, 62.707947222222202, 0.0 ] } }
 		,
 		{ "type": "Feature", "properties": {
+			"leftsided" :true,
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
 		], "bigicon" : true, "Name": "Обозерская", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 40.311391666666701, 63.448888888888902, 0.0 ] } }
 		,
 		{ "type": "Feature", "properties": {
+			"leftsided" :true,
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
@@ -205,6 +307,18 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 		{ "type": "Feature", "properties": {
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
@@ -213,10 +327,22 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 		{ "type": "Feature", "properties": {
 			"photobg" : '/img/popupposters/1/photo.jpg',
 			"videobg" : '/img/popupposters/1/video.jpg',
+				"slides": [{
+					'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}
+					},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"
+					}},{'photo':{
+						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						'discr':"sadadas"}
+					}],
 			"video" : [
 			{"type":"video/mp4", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"},
 			{"type":"video/ogg", "src":"http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"}
-		], "Name": "Сура", "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 45.6324, 63.575536111111099, 0.0 ] } }
+		], "Name": "Сура" , "alwaysvisible":true, "Description": "gjgjhg" }, "geometry": { "type": "Point", "coordinates": [ 45.6324, 63.575536111111099, 0.0 ] } }
 	]
 	var jsonLayer = L.geoJson(geoJsonObj,{pointToLayer:pointToLayer}).addTo($scope.map);
 	  var polyline = L.polyline([],{color:"#f7f7f7",weight:2,opacity:1}).addTo($scope.map);
@@ -225,14 +351,14 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	});
 	  var poptimeout = null
 	  $scope.map.on('popupclose',function(){
-	  	poptimeout = $timeout(function(){$scope.map.setView([61.66235,40.2058416666667], 6,{animate:false})},100)
+	  	poptimeout = $timeout(function(){$scope.map.setView([61.66235,40.2058416666667], 6,{animate:true,pan:{easeLinearity:1}})},100)
 	  });
 	  $scope.map.on('popupopen', function(e){
 	  		$timeout.cancel(poptimeout);
-		    $scope.map.setView(e.popup._latlng, 9,{animate:false});
+		    $scope.map.setView(e.popup._latlng, 9,{animate:true,pan:{easeLinearity:1}});
 		});
-	$scope.showPhotos = function(){
-
+	$scope.showSlides = function(slides){
+		$scope.slides=slides;
 	}
 	$scope.playVideo = function(videoObj){
 		$scope.video.src(videoObj);

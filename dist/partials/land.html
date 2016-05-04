@@ -1,5 +1,5 @@
 <div class="land_content" ng-class="{hidden:videoplayng}">
-<img src="/img/logo.png" alt="Иоанн Кронштадский международные юбилейные торжества" class="logo logo-land">
+<a href="http://pravprihod.ru/" title="Перейти она офф. сайи Ионановской семьи" class="logo-land"><img src="/img/logo-white.png" alt="Иоанн Кронштадский международные юбилейные торжества" class="logo"></a>
 <div class="header header-land">
 	<h1 class="siteheader">
 		<span class="siteheader-big">Иоанн</span>
@@ -17,8 +17,10 @@
 </nav>
 </div>
 <button class="close close-video" ng-class="{hidden:!videoplayng}" ng-click='closeVideo()'></button>
+<div class="landvideoholder" ng-class="{hiddenposter:videoplayng}">
 <video id="div_video" class="video-js vjs-default-skin div_video" controls preload="auto" poster="/img/bg-main.jpg">  
     <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"  type="video/mp4">
     <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv"  type="video/ogg">
     <!-- <source src=""  type="video/webm"> -->
  </video>
+ </div>

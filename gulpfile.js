@@ -31,17 +31,22 @@ gulp.task('copyjs', function() {
     './bower_components/angular-toArrayFilter/toArrayFilter.js',
     './bower_components/video.js/dist/video.js',
     './bower_components/leaflet/dist/leaflet.js',
-    './bower_components/angular-animate/angular-animate.min.js'])
+    './bower_components/angular-animate/angular-animate.min.js',
+    './bower_components/jquery/dist/jquery.min.js',
+    './bower_components/slick-carousel/slick/slick.min.js'])
    .pipe(gulp.dest('./dist/js/'));
 });
 gulp.task('copycss', function() {
    gulp.src(
     ['./bower_components/video.js/dist/video-js.min.css',
-    './bower_components/leaflet/dist/leaflet.css'])
+    './bower_components/leaflet/dist/leaflet.css',
+    './bower_components/slick-carousel/slick/slick.css',
+    './bower_components/slick-carousel/slick/slick-theme.css'])
    .pipe(gulp.dest('./dist/css/'));
 });
 gulp.task('copyvector',function(){
   gulp.src(
-    './bower_components/video.js/dist/video-js.swf')
+    ['./bower_components/video.js/dist/video-js.swf',
+    './bower_components/slick-carousel/slick/fonts/slick.*'])
   .pipe(gulp.dest('./dist/fonts/'));
 })

@@ -1,3 +1,31 @@
+@-webkit-keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
 * {
   margin: 0;
   padding: 0;
@@ -18,27 +46,69 @@
   z-index: 0;
   overflow: hidden;
 }
+.leaflet-container {
+  cursor: default;
+}
 .map-celebration-point {
   height: 10px !important;
   width: 10px !important;
   background-color: #f7f7f7;
   border-radius: 50%;
-  margin-left: -5px !important;
-  margin-top: -5px !important;
+  margin-left: -15px !important;
+  margin-top: -15px !important;
+  border: 10px solid transparent;
+  background-clip: padding-box;
+}
+.map-celebration-point:hover .marker-title {
+  opacity: 1;
+  display: inline-block;
+}
+.map-celebration-point .marker-title {
+  opacity: 0;
 }
 .map-celebration-point-big {
   height: 20px !important;
   width: 20px !important;
   background-color: #f7f7f7;
   border-radius: 50%;
-  margin-left: -10px !important;
-  margin-top: -10px !important;
+  margin-left: -20px !important;
+  margin-top: -20px !important;
+  border: 10px solid transparent;
+  background-clip: padding-box;
+}
+.map-celebration-point-big:hover .marker-title {
+  opacity: 1;
+  display: inline-block;
+}
+.map-celebration-point-big .marker-title {
+  opacity: 0;
+}
+.map-celebration-point-alwaysvisible .marker-title {
+  opacity: 1;
+  display: inline-block;
+}
+.marker-title {
+  position: absolute;
+  font: 14px 'Roboto', sans-serif;
+  top: -10px;
+  left: 20px;
+  min-width: 200px;
+  opacity: 0;
+  display: none;
+  -webkit-animation: fadeInFromNone 200ms ease-in;
+          animation: fadeInFromNone 200ms ease-in;
 }
 .leaflet-tile-loaded {
-  -webkit-filter: blur(1px);
-          filter: blur(1px);
-  -webkit-transform: scale(1.01);
-          transform: scale(1.01);
+  -webkit-filter: blur(2px) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+          filter: blur(2px) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+}
+.leaflet-marker-icon:nth-child(1) .marker-title {
+  top: -20px;
+}
+.leaflet-marker-icon:nth-child(2) .marker-title {
+  top: 20px;
 }
 body {
   min-height: 100vh;
@@ -61,10 +131,16 @@ main {
 .vjs-has-started .vjs-poster {
   display: block;
 }
-.vjs-has-started .vjs-control-bar {
+.vjs-has-started .vjs-poster {
+  display: block;
+}
+.landvideoholder .vjs-control-bar {
   display: none;
 }
-.vjs-playing .vjs-control-bar {
+.hiddenposter .vjs-poster {
+  display: none;
+}
+.hiddenposter .vjs-control-bar {
   opacity: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -397,6 +473,12 @@ main {
   width: 2px;
   height: 110px;
   background-color: rgba(255, 255, 255, 0.5);
+}
+.popup-leftsided:after {
+  left: calc(100% + 5px);
+  top: 131px;
+  width: 133px;
+  height: 2px;
 }
 .popupposter {
   position: absolute;

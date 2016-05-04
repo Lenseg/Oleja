@@ -3,7 +3,7 @@
 	<a href="#/family" class="navlink">Иоанновская семья</a>
 </nav>
 
-<a href="#/" class="logo-celebrations"><img src="/img/logo-white.png" alt="Иоанн Кронштадский международные юбилейные торжества" class="logo"></a>
+<a href="http://pravprihod.ru/" title="Перейти она офф. сайи Ионановской семьи" class="logo-celebrations"><img src="/img/logo-white.png" alt="Иоанн Кронштадский международные юбилейные торжества" class="logo"></a>
 <div class="clearfix"></div>
 <div class="header header-celebrations">
 	<h1 class="siteheader">
@@ -35,24 +35,17 @@
 		</ul>
 	</div>
 </div>
-<div class="pointsholder">
-	<div class="pointline" ng-repeat='point in points'>
-		<div class="pointdiscr" ng-show='point.visible'>
-			<button class="pointdiscr_button" ng-click='showPhotos("{{point.photo}}")'>фото</button>
-			<button class="pointdiscr_button" ng-click='showVideo("{{point.video}}")'>видео</button>
-			<p class="pointdiscr_discr">
-				{{point.discription}}
-			</p>
-		</div>
-		<a href="" class="navlink pointlink" ng-click='showPoint(point)'>{{point.name}}</a>
-	</div>
-</div>
 <div id="mapid" class="map"></div>
 <div class="videocontainer animate-show" ng-show='showvideo'>
 	<button class="close close-video" ng-click='closeVideo()'></button>
 	<video id="div_video" class="video-js vjs-default-skin videoplayer" controls preload="auto" poster="/img/bg-main.jpg">  
 	</video>
 </div>
+	<div id="slick" class="slider">
+		<div class="slide" ng-repeat="slide in slides">
+			<img ng-src="{{slide.photo.src}}" alt="{{slide.photo.discr}}" class="slide_photo">
+		</div>
+	</div>
 <div class="overlay" ng-show='showvideo' ng-click='closeVideo()'>
 	
 </div>
