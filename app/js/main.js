@@ -373,7 +373,6 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 		angular.forEach($scope.slides,function(value,indexinn,obj){
 			if(value.visible)
 			{	
-				console.log(indexinn,obj.length-1,pres)
 				if(indexinn==obj.length-1&&pres>0)
 					index=-1;
 				else if(indexinn==0&&pres<0)
@@ -383,7 +382,6 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 			}
 			value.visible = false;
 		});
-		console.log(index,index+pres);
 		$scope.slides[index+pres].visible=true;
 	};
 	$scope.playVideo = function(videoObj){
