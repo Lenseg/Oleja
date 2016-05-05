@@ -164,7 +164,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -188,7 +188,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -209,7 +209,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -230,7 +230,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -251,7 +251,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -272,7 +272,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -293,7 +293,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -313,7 +313,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -333,7 +333,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 						'discr':"sadadas"
 					}
 					},{'photo':{
-						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
+						"src":'https://pp.vk.me/c629630/v629630927/1c2e/Ci9yMB-KWR8.jpg',
 						'discr':"sadadas"
 					}},{'photo':{
 						"src":'https://pp.vk.me/c631616/v631616927/28a4e/DPVvqyZ5JVc.jpg',
@@ -357,9 +357,35 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	  		$timeout.cancel(poptimeout);
 		    $scope.map.setView(e.popup._latlng, 9,{animate:true,pan:{easeLinearity:1}});
 		});
+	$scope.slidesVisibility = false;
 	$scope.showSlides = function(slides){
 		$scope.slides=slides;
+		$scope.slides[0].visible = true;
+		$scope.slidesVisibility = true;
 	}
+	$scope.closeSlides = function(){
+		$scope.slides=[];
+		$scope.slidesVisibility = false;
+	};
+	$scope.moveToSlide=function(p){
+		var index=0;
+		var pres = parseInt(p);
+		angular.forEach($scope.slides,function(value,indexinn,obj){
+			if(value.visible)
+			{	
+				console.log(indexinn,obj.length-1,pres)
+				if(indexinn==obj.length-1&&pres>0)
+					index=-1;
+				else if(indexinn==0&&pres<0)
+					index=obj.length
+				else
+					index=indexinn;
+			}
+			value.visible = false;
+		});
+		console.log(index,index+pres);
+		$scope.slides[index+pres].visible=true;
+	};
 	$scope.playVideo = function(videoObj){
 		$scope.video.src(videoObj);
 		$scope.showvideo = true;
@@ -399,3 +425,21 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	   $scope.mousedown = false;
 	}); 
 }]);
+
+ioann.directive('imageonload', function() {
+return {
+    restrict: 'A',
+  
+    link: function(scope, element) {
+    element.on('load', function() {
+         element.removeClass('spinner-hide');
+         element.addClass('spinner-show');
+         element.parent().find('span').remove();
+     });
+     scope.$watch('ngSrc', function() {
+          element.addClass('spinner-hide');
+          element.parent().append('<span class="spinner"></span>');
+});
+        }
+    };
+});

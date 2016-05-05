@@ -389,7 +389,7 @@ main {
 }
 .animate-show {
   opacity: 1;
-  max-height: 500px;
+  max-height: 1000px;
 }
 .animate-show.ng-hide-add,
 .animate-show.ng-hide-remove {
@@ -492,4 +492,48 @@ main {
 }
 .leaflet-container a {
   color: #f7f7f7;
+}
+.slider {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 80vh;
+}
+.slider_button {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 16px 20px 16px 0;
+  border-color: transparent rgba(255, 255, 255, 0.3) transparent transparent;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 10px;
+  cursor: pointer;
+  -webkit-transition: 300ms ease-in;
+  transition: 300ms ease-in;
+}
+.slider_button-right {
+  left: auto;
+  right: 10px;
+  -webkit-transform: translateY(-50%) rotate(180deg);
+          transform: translateY(-50%) rotate(180deg);
+}
+.slider_button:hover {
+  border-color: transparent rgba(255, 255, 255, 0.7) transparent transparent;
+}
+.slide_photo {
+  max-width: 100%;
+  max-height: 80vh;
+}
+.spinner-hide .loading {
+  visibility: visible;
+}
+.spinner-show .loading {
+  visibility: hidden;
 }

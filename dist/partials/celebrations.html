@@ -41,11 +41,14 @@
 	<video id="div_video" class="video-js vjs-default-skin videoplayer" controls preload="auto" poster="/img/bg-main.jpg">  
 	</video>
 </div>
-	<div id="slick" class="slider">
-		<div class="slide" ng-repeat="slide in slides">
-			<img ng-src="{{slide.photo.src}}" alt="{{slide.photo.discr}}" class="slide_photo">
-		</div>
+<div id="slick" ng-show='slidesVisibility' class="slider animate-show">
+	<button class="close close-video" ng-click='closeSlides()'></button>
+	<div class="slide animate-show" ng-show='slide.visible' ng-class='{in:$first}' ng-repeat="slide in slides">
+		<img ng-src="{{slide.photo.src}}" alt="{{slide.photo.discr}}" class="slide_photo" imageonload>
 	</div>
-<div class="overlay" ng-show='showvideo' ng-click='closeVideo()'>
+	<button class="slider_button" ng-click='moveToSlide("-1")'></button>
+	<button class="slider_button slider_button-right" ng-click='moveToSlide("1")'></button>
+</div>
+<div class="overlay" ng-show='showvideo || slidesVisibility' ng-click='closeVideo();closeSlides();'>
 	
 </div>
