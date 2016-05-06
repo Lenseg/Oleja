@@ -95,9 +95,16 @@
     display: none;
     animation:fadeInFromNone 200ms ease-in;
 }
+.leaflet-tile-pane{
+	transition: 200ms linear;
+}
 .leaflet-tile-loaded {
-    filter: blur(2px) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+    filter: url(blur.svg#blur) brightness(3.1) hue-rotate(13deg) saturate(0.71);
     transform: scale(1.02);
+}
+.leaflet-objects-pane{
+	transition: 200ms linear;
+	position: absolute;
 }
 .leaflet-marker-icon:nth-child(1){
 	.marker-title{

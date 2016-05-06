@@ -357,6 +357,38 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	  		$timeout.cancel(poptimeout);
 		    $scope.map.setView(e.popup._latlng, 9,{animate:true,pan:{easeLinearity:1}});
 		});
+	  var map = angular.element(document.getElementById('mapid'));
+	  	var mapheight = map[0].offsetHeight/2;
+	  	var mapwidth =  map[0].offsetWidth/2;
+	  	var tiles = angular.element(document.getElementsByClassName("leaflet-tile-pane"));
+	  	var pave =angular.element(document.getElementsByClassName('leaflet-objects-pane'));
+	  $scope.map.on('mousemove',function(e){
+	  	var x = e.originalEvent.layerX;
+	  	var y = e.originalEvent.layerY;
+	  	
+	  	var xdiff = mapwidth - x;
+	  	var ydiff = mapheight - y;
+	  	var pxx = ((xdiff/mapwidth)*(mapwidth*2))/50;
+	  	var pxy = ((ydiff/mapheight)*(mapheight*2))/50;
+	  	
+  		tiles[0].style.transform = "translate3d("+pxx+"px,"+pxy+"px,0)";
+  		// tiles[0].style.left =pxx+"px";
+  		// tiles[0].style.left =pxx+"px";
+  		// tiles[0].style.left =pxx+"px";
+  		// tiles[0].style.transform = pxy+"px";
+  		// tiles[0].style.top =pxy+"px";
+  		// tiles[0].style.top =pxy+"px";
+  		// tiles[0].style.top =pxy+"px";
+
+  		pave[0].style.transform = "translate3d("+pxx/1.5+"px,"+pxy/1.5+"px,0)";
+  		// pave[0].style.left =(pxx/1.5)+"px";
+  		// pave[0].style.left =(pxx/1.5)+"px";
+  		// pave[0].style.left =(pxx/1.5)+"px";
+  		// pave[0].style.top = (pxy/1.5)+"px";
+  		// pave[0].style.top =(pxy/1.5)+"px";
+  		// pave[0].style.top =(pxy/1.5)+"px";
+  		// pave[0].style.top =(pxy/1.5)+"px";
+	  })
 	$scope.slidesVisibility = false;
 	$scope.showSlides = function(slides){
 		$scope.slides=slides;
@@ -364,8 +396,8 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 		$scope.slidesVisibility = true;
 	}
 	$scope.closeSlides = function(){
-		$scope.slides=[];
 		$scope.slidesVisibility = false;
+		$scope.slides=[];
 	};
 	$scope.moveToSlide=function(p){
 		var index=0;
@@ -421,7 +453,7 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	}
 	document.documentElement.addEventListener('mouseup', function(e){
 	   $scope.mousedown = false;
-	}); 
+	});
 }]);
 
 ioann.directive('imageonload', function() {

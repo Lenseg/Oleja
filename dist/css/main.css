@@ -98,11 +98,20 @@
   -webkit-animation: fadeInFromNone 200ms ease-in;
           animation: fadeInFromNone 200ms ease-in;
 }
+.leaflet-tile-pane {
+  -webkit-transition: 200ms linear;
+  transition: 200ms linear;
+}
 .leaflet-tile-loaded {
-  -webkit-filter: blur(2px) brightness(3.1) hue-rotate(13deg) saturate(0.71);
-          filter: blur(2px) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+  -webkit-filter: url(blur.svg#blur) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+          filter: url(blur.svg#blur) brightness(3.1) hue-rotate(13deg) saturate(0.71);
   -webkit-transform: scale(1.02);
           transform: scale(1.02);
+}
+.leaflet-objects-pane {
+  -webkit-transition: 200ms linear;
+  transition: 200ms linear;
+  position: absolute;
 }
 .leaflet-marker-icon:nth-child(1) .marker-title {
   top: -20px;
