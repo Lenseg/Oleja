@@ -96,14 +96,16 @@
     animation:fadeInFromNone 200ms ease-in;
 }
 .leaflet-tile-pane{
-	transition: 200ms linear;
+	transition: 1100ms ease-out;
+	transform-style: preserve-3d;
 }
 .leaflet-tile-loaded {
-    filter: url(blur.svg#blur) brightness(3.1) hue-rotate(13deg) saturate(0.71);
+    filter: grayscale(0.6) brightness(3.4) contrast(1.4) invert(0.1) saturate(1.3);;
     transform: scale(1.02);
 }
 .leaflet-objects-pane{
-	transition: 200ms linear;
+	transition: 1100ms ease-out;
+	transform-style: preserve-3d;
 	position: absolute;
 }
 .leaflet-marker-icon:nth-child(1){
@@ -535,3 +537,27 @@ main{
             .spinner-show .loading{
               visibility: hidden;
             }
+.cloudscontainer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	.cloudBase{
+		height: 1px;
+		width: 1px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		transition:transform 1000ms linear;
+		.cloud{
+			width: 25px;
+			height: 25px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-image: url(/img/cloud.png);
+			opacity: 0.36;
+			transition:transform 1000ms linear;
+		}
+	}
+}

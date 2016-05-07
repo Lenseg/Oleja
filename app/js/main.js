@@ -362,33 +362,22 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	  	var mapwidth =  map[0].offsetWidth/2;
 	  	var tiles = angular.element(document.getElementsByClassName("leaflet-tile-pane"));
 	  	var pave =angular.element(document.getElementsByClassName('leaflet-objects-pane'));
-	  $scope.map.on('mousemove',function(e){
-	  	var x = e.originalEvent.layerX;
-	  	var y = e.originalEvent.layerY;
-	  	
-	  	var xdiff = mapwidth - x;
-	  	var ydiff = mapheight - y;
-	  	var pxx = ((xdiff/mapwidth)*(mapwidth*2))/50;
-	  	var pxy = ((ydiff/mapheight)*(mapheight*2))/50;
-	  	
-  		tiles[0].style.transform = "translate3d("+pxx+"px,"+pxy+"px,0)";
-  		// tiles[0].style.left =pxx+"px";
-  		// tiles[0].style.left =pxx+"px";
-  		// tiles[0].style.left =pxx+"px";
-  		// tiles[0].style.transform = pxy+"px";
-  		// tiles[0].style.top =pxy+"px";
-  		// tiles[0].style.top =pxy+"px";
-  		// tiles[0].style.top =pxy+"px";
-
-  		pave[0].style.transform = "translate3d("+pxx/1.5+"px,"+pxy/1.5+"px,0)";
-  		// pave[0].style.left =(pxx/1.5)+"px";
-  		// pave[0].style.left =(pxx/1.5)+"px";
-  		// pave[0].style.left =(pxx/1.5)+"px";
-  		// pave[0].style.top = (pxy/1.5)+"px";
-  		// pave[0].style.top =(pxy/1.5)+"px";
-  		// pave[0].style.top =(pxy/1.5)+"px";
-  		// pave[0].style.top =(pxy/1.5)+"px";
-	  })
+	  	var clouds =angular.element(document.getElementsByClassName('cloudscontainer'));
+	  	function updateLayers(e){
+	  		var x = e.originalEvent.layerX;
+		  	var y = e.originalEvent.layerY;
+		  	
+		  	var xdiff = mapwidth - x;
+		  	var ydiff = mapheight - y;
+		  	var pxx = ((xdiff/mapwidth)*(mapwidth*2))/50;
+		  	var pxy = ((ydiff/mapheight)*(mapheight*2))/50;
+		  	window.requestAnimationFrame(function() {
+	            tiles[0].style.transform = "translate3d("+pxx+"px,"+pxy+"px,0)";
+		  		pave[0].style.transform = "translate3d("+pxx/1.5+"px,"+pxy/1.5+"px,0)";
+		  		clouds[0].style.transform="translate3d("+pxx/1.1+"px,"+pxy/1.1+"px,0)";
+	        });
+	  	}
+	  $scope.map.on('mousemove',updateLayers)
 	$scope.slidesVisibility = false;
 	$scope.showSlides = function(slides){
 		$scope.slides=slides;
@@ -454,6 +443,21 @@ ioann.controller('celebrationsCtrl',['$scope', '$http','$compile','$timeout', fu
 	document.documentElement.addEventListener('mouseup', function(e){
 	   $scope.mousedown = false;
 	});
+	$scope.map.addLayer(new cloudLayer(L.latLng(61.66235,40.2058416666667)));
+	document.getElementsByClassName('cloudscontainer')[0].style.transform="none";
+	for (var j = 0; j < 20 + Math.round( Math.random() * 10 ); j++) {
+		generateCloud();
+	};
+	$scope.map.on('zoomend', function () {
+		if ($scope.map.getZoom() < 7) {
+		    document.getElementsByClassName('cloudscontainer')[0].style.transform="none";
+		    document.getElementsByClassName('cloudscontainer')[0].style.visibility="visible";
+		}
+		if ($scope.map.getZoom() > 7)
+		{
+		    document.getElementsByClassName('cloudscontainer')[0].style.visibility="hidden";
+		}   
+	}); 
 }]);
 
 ioann.directive('imageonload', function() {
@@ -472,4 +476,108 @@ return {
 });
         }
     };
+});
+
+var cloudBases = [];
+var clouds = [];
+generateCloud = function (){
+var map = angular.element(document.getElementById('mapid'));
+var cloudLayer=document.getElementsByClassName('cloudscontainer')[0];
+	var mapheight = map[0].offsetHeight;
+	var mapwidth =  map[0].offsetWidth;
+var div = {
+	obj : document.createElement('div')
+}
+div.obj.className = 'cloudBase';
+div.transform = {
+	x:Math.round( Math.random() * mapwidth ),
+	y:Math.round( Math.random() * mapheight)
+}
+var t = 'translateX( ' + div.transform.x + 'px ) \
+    translateY( ' + div.transform.y + 'px )';
+div.obj.style.transform = t;
+div.obj.style.webkiTransform = t;
+for( var j = 0; j < 5 + Math.round( Math.random() * 10 ); j++ ) {
+var cloud ={
+	obj : document.createElement( 'div' )
+};
+cloud.obj.className = 'cloud';
+cloud.transform = {
+	x :Math.round( Math.random() * 40 ),
+	y:Math.round( Math.random() * 40 ),
+	r:Math.round( Math.random() * 360 ),
+	s:1+Math.random()
+}
+var t = 'translateX( ' + cloud.transform.x + 'px ) translateY( ' + cloud.transform.y + 'px ) rotate( ' + cloud.transform.r + 'deg ) scale(' + cloud.transform.s + ')';
+cloud.obj.style.transform = t;
+cloud.obj.style.webkiTransform = t;
+div.obj.appendChild( cloud.obj );
+clouds.push(cloud);
+}
+cloudLayer.appendChild(div.obj);
+cloudBases.push(div);
+requestAnimationFrame(function(){return udpadeClouds(new Date())});
+
+
+udpadeClouds = function(date){
+	var map = angular.element(document.getElementById('mapid'));
+	var newtime = new Date();
+	var dt = (date - newtime)/5000;
+	var hc = false;
+	for (var i = cloudBases.length - 1; i >= 0; i--) {
+		cloudBases[i].transform.x = cloudBases[i].transform.x + (5*Math.random()*dt);
+		cloudBases[i].transform.y = cloudBases[i].transform.y + (2*Math.random()*dt);
+		if(cloudBases[i].transform.x<-100){
+			cloudBases[i].transform.x=mapwidth+100;
+			cloudBases[i].obj.style.transition = "none";
+		}
+		if(cloudBases[i].transform.y<-100){
+			cloudBases[i].transform.y=mapheight+100;
+			cloudBases[i].obj.style.transition = "none";
+		}
+		if(cloudBases[i].transform.y<mapheight+30&&cloudBases[i].transform.x<mapwidth+30)
+			cloudBases[i].obj.style.transition = "transform 1000ms linear";
+		var t = 'translateX( ' + cloudBases[i].transform.x + 'px ) \
+        translateY( ' + cloudBases[i].transform.y + 'px )';
+		cloudBases[i].obj.style.transform = t;
+
+	};
+	for (var i = clouds.length - 1; i >= 0; i--) {
+		clouds[i].transform.r = clouds[i].transform.r + Math.random()*5* dt;
+		var t = 'translateX( ' + clouds[i].transform.x + 'px ) translateY( ' + clouds[i].transform.y + 'px ) rotate( ' + clouds[i].transform.r + 'deg ) scale(' + clouds[i].transform.s + ')';
+		clouds[i].obj.style.transform = t;
+	};
+	return requestAnimationFrame(function(){return udpadeClouds(newtime)})
+	}
+}
+var cloudLayer = L.Class.extend({
+
+    initialize: function (latlng) {
+        // save position of the layer or any options from the constructor
+        this._latlng = latlng;
+    },
+
+    onAdd: function (map) {
+        this._map = map;
+
+        // create a DOM element and put it into one of the map panes
+        this._el = L.DomUtil.create('div', 'cloudscontainer leaflet-zoom-hide');
+        map.getPanes().overlayPane.appendChild(this._el);
+
+        // add a viewreset event listener for updating layer's position, do the latter
+        map.on('viewreset', this._reset, this);
+        this._reset();
+    },
+
+    onRemove: function (map) {
+        // remove layer's DOM elements and listeners
+        map.getPanes().overlayPane.removeChild(this._el);
+        map.off('viewreset', this._reset, this);
+    },
+
+    _reset: function () {
+        // update layer's position
+        var pos = this._map.latLngToLayerPoint(this._latlng);
+        L.DomUtil.setPosition(this._el, pos);
+    }
 });
